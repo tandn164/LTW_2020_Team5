@@ -1,5 +1,7 @@
 # Prerequisites
 *.d
+*.DS_Store
+*node_modules
 
 # Object files
 *.o
