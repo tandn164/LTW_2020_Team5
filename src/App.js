@@ -1,16 +1,17 @@
-import React from "react";
-import Application from "./components/Application";
+import React, { useContext } from "react";
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./shards-dashboard/styles/shards-dashboards.1.1.0.min.css";
+
 import UserProvider from "./providers/UserProvider";
-import ProfileScreen from "./ui/ProfileScreen/ProfileScreen";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Application from "./Application";
 
 function App() {
   return (
-    // <UserProvider>
-    <div>
-      <ProfileScreen />
-    </div>
-    // </UserProvider>
-  );
+    <UserProvider>
+      <Application/>
+    </UserProvider>
+  )
 }
 export default App;
