@@ -1,6 +1,7 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
 import React from "react";
+import { getContestsDocument } from "../components/Firebase/firebase"
 import {
   Container,
   Row,
@@ -19,6 +20,7 @@ class BlogPosts extends React.Component {
     super(props);
 
     this.state = {
+      contest: [],
       // First list of posts.
       PostsListOne: [
         {
@@ -174,13 +176,80 @@ class BlogPosts extends React.Component {
     };
   }
 
+ async componentDidMount() {
+   const res= await this.getContest()
+   console.log(res);
+    this.setState({
+      ...this.state,
+      contest: res
+    })
+    console.log(this.state.contest);
+  }
+  handleToDoingTesting=()=>{
+    console.log("zoooooozz");
+  }
+  content=()=>{
+     
+      let show;
+          {
+          if(this.state.contest.length>0){
+        show=  this.state.contest.map((value, idx) => (
+            <Col lg="3" md="6" sm="12" className="mb-4" key={idx}
+            
+            >
+               <Card small className="card-post card-post--1">
+                <div
+                  className="card-post__image"
+                  style={{ 
+                    // backgroundImage: `url(${post.backgroundImage})` 
+                  }}
+                >
+                  <Badge
+                    pill
+                    className={`card-post__category bg-${value.title}`}
+                  >
+                    {value.category}
+                  </Badge>
+                  <div className="card-post__author d-flex">
+                    <a
+                      href="#"
+                      className="card-post__author-avatar card-post__author-avatar--small"
+                      style={{ 
+                        // backgroundImage: `url('${post.authorAvatar}')` 
+                      }}
+                    >
+                      Written by 
+                      {value.numberOfQuestion}
+                    </a>
+                  </div>
+                </div>
+                <CardBody>
+                  <h5 className="card-title">
+                    <a href="#" className="text-fiord-blue">
+                      {value.title}
+                    </a>
+                  </h5>
+                  <p className="card-text d-inline-block mb-3">{value.numberOfQuestion}</p>
+                  <span className="text-muted">{value.type}</span>
+                </CardBody>
+              </Card>
+            </Col>
+          ))}}
+      
+   return show;
+  }
+  getContest= async()=>{
+    const contest = await getContestsDocument()
+    console.log("contest ", contest);
+    return contest
+  }
   render() {
-    const {
-      PostsListOne,
-      PostsListTwo,
-      PostsListThree,
-      PostsListFour
-    } = this.state;
+    if(this.state.contest){
+      console.log(this.state.contest.length);
+     
+   }
+
+     // console.log(typeof this.state.contest);
 
     return (
       <Container fluid className="main-content-container px-4">
@@ -188,9 +257,10 @@ class BlogPosts extends React.Component {
         <Row noGutters className="page-header py-4">
           <PageTitle sm="4" title="Contest and Exercise" className="text-sm-left" />
         </Row>
-
-        {/* First Row of Posts */}
         <Row>
+        {this.content()}
+        </Row>
+        {/* <Row>
           {PostsListOne.map((post, idx) => (
             <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
               <Card small className="card-post card-post--1">
@@ -228,7 +298,6 @@ class BlogPosts extends React.Component {
           ))}
         </Row>
 
-        {/* Second Row of Posts */}
         <Row>
           {PostsListTwo.map((post, idx) => (
             <Col lg="6" sm="12" className="mb-4" key={idx}>
@@ -267,7 +336,6 @@ class BlogPosts extends React.Component {
           ))}
         </Row>
 
-        {/* Third Row of Posts */}
         <Row>
           {PostsListThree.map((post, idx) => (
             <Col lg="4" key={idx}>
@@ -303,7 +371,6 @@ class BlogPosts extends React.Component {
           ))}
         </Row>
 
-        {/* Fourth Row of posts */}
         <Row>
           {PostsListFour.map((post, idx) => (
             <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
@@ -335,7 +402,7 @@ class BlogPosts extends React.Component {
               </Card>
             </Col>
           ))}
-        </Row>
+        </Row> */}
       </Container>
     );
   }

@@ -53,3 +53,19 @@ const getUserDocument = async uid => {
     console.error("Error fetching user", error);
   }
 };
+
+export const getContestsDocument = async () => {
+  const contestsRef = await firestore.collection('contests');
+  const snapshot = await contestsRef.get();
+  if (snapshot.empty) {
+    console.log('No matching documents.');
+    return;
+  }
+  let docs=[]
+  snapshot.forEach(doc => {
+    console.log(doc.id, '=>', doc.data());
+    docs.push(doc.data())
+  });
+  console.log('data  ', docs);
+  return docs
+}
