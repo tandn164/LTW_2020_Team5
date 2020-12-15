@@ -22,7 +22,6 @@ export default function CompleteFormExample(props) {
   const [correctAnswer, setCorrect] = useState(props.data.correctAnswer)
 
   useEffect(() => {
-    // console.log("props  ", props);
   }, [isChecked])
   const handleChange = (event) => {
     setCheck(event+index)
@@ -36,7 +35,7 @@ export default function CompleteFormExample(props) {
 
   }
   return (
-    <ListGroup flush>
+    <div style={{paddingLeft:"20px", paddingTop: "20px", paddingRight: "20px"}}>
       <ListGroupItem className="p-3">
         <div className="wrap-question">
           <label className="content-question">
@@ -62,8 +61,6 @@ export default function CompleteFormExample(props) {
 
 
       </ListGroupItem>
-    </ListGroup>
+    </div>
   )
 }
-
-// export default CompleteFormExample;

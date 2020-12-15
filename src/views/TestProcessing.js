@@ -1,5 +1,5 @@
 
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import {
     Container,
     Row,
@@ -13,62 +13,40 @@ import {
     Button
 } from "shards-react";
 import CompleteFormExample from '../components/components-overview/CompleteFormExample';
+import { getQuestionList } from '../components/Firebase/firebase';
 
+function TestProcessing(props) {
+    const [answerData, setData] = useState(null)
+    const [listAnswer, setListAnswer] = useState(null)
 
-function TestProcessing() {
-    const [data, setData] = useState([{
-        question: "abcd",
-        answer: ["Aa", "Bb", "Cc", "Dd"],
-        correctAnswer: "A"
-    },
-    {
-        question: "abc1",
-        answer: ["A", "B", "C", "D"],
-        correctAnswer: "C"
-    },
-    {
-        question: "abc2",
-        answer: ["A", "B", "C", "D"],
-        correctAnswer: "C"
-    },
-    {
-        question: "abc3",
-        answer: ["A", "B", "C", "D"],
-        correctAnswer: "C"
-    },
-    {
-        question: "abc4",
-        answer: ["A", "B", "C", "D"],
-        correctAnswer: "C"
-    },
-    {
-        question: "abc5",
-        answer: ["A", "B", "C", "D"],
-        correctAnswer: "C"
-    },
-    {
-        question: "abc6",
-        answer: ["A", "B", "C", "D"],
-        correctAnswer: "C"
-    },
-    {
-        question: "abc7",
-        answer: ["A", "B", "C", "D"],
-        correctAnswer: "C"
-    }])
-    let listAnswer = [...Array(10)];
     const getUserAnswer = (data) => {
         if (listAnswer[data.question] != data.answer) {
             listAnswer.splice(data.question, 1, data.answer)
         }
     }
+
+    const getQuestions = async(contestID) => {
+        const questionList = await getQuestionList(contestID)
+        setData(questionList)
+        setListAnswer([...Array(questionList.length)])
+        return questionList
+    }
+
+    useEffect(()=>{
+       if (!answerData) {
+        getQuestions(props.location.questionsProp)
+       }
+
+    })
+
     const handleSubmit = () => {
         console.log(listAnswer);
     }
+
     function content() {
         let show;
-        if (data.length > 0) {
-            show = data.map((value, idx) => {
+        if (answerData && answerData.length > 0) {
+            show = answerData.map((value, idx) => {
                 return (
                     <CompleteFormExample
                         data={value} index={idx}
@@ -79,15 +57,15 @@ function TestProcessing() {
             return show
         }
     }
+
     return (
         <>
             {content()}
-            <div>
+            <div style={{textAlign: "center"}}>
                 <Button onClick={() => handleSubmit()}>Submit</Button>
             </div>
         </>
     )
-
 }
 
 export default TestProcessing

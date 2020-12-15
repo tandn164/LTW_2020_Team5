@@ -108,7 +108,6 @@ const ComponentsOverview = () => (
             <CardHeader className="border-bottom">
               <h6 className="m-0">Form Example</h6>
             </CardHeader>
-            <CompleteFormExample />
           </Card>
         </Col>
 

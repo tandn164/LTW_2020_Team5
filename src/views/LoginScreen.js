@@ -22,15 +22,19 @@ const LoginScreen = () => {
   };
   const handleSignIn = () => {
     setClassName('contaiiner')
-    console.log("sign-in ", containerClassName);
   }
   const createUserWithEmailAndPasswordHandler = async (event, email, password) => {
     event.preventDefault();
     try{
       const {user} = await auth.createUserWithEmailAndPassword(email, password).then((user) => {
         auth.currentUser.sendEmailVerification();
+        if (user.user) {
+          user.user.updateProfile({
+            displayName:displayName
+          })
+          generateUserDocument(user, displayName);
+        }
       })
-      generateUserDocument(user, {displayName});
     }
     catch(error){
       setError('Error Signing up with email and password');
@@ -42,7 +46,6 @@ const LoginScreen = () => {
 
   const handleSignUp = () => {
     setClassName(' contaiiner  sign-up-mode')
-    console.log("sign-up  ", containerClassName);
   }
   const onChangeHandler = (event) => {
     const { name, value } = event.currentTarget;

@@ -3,14 +3,14 @@ import 'firebase/firestore';
 import "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyC6PAJEYtNpkbA-LDy47SfME27i-dFNc0U",
-    authDomain: "ltmwebproject-fetesting.firebaseapp.com",
-    databaseURL: "https://ltmwebproject-fetesting.firebaseio.com",
-    projectId: "ltmwebproject-fetesting",
-    storageBucket: "ltmwebproject-fetesting.appspot.com",
-    messagingSenderId: "787184009519",
-    appId: "1:787184009519:web:c431f6d60ef4bd504761da",
-    measurementId: "G-29P2FZC114"
+  apiKey: "AIzaSyC6PAJEYtNpkbA-LDy47SfME27i-dFNc0U",
+  authDomain: "ltmwebproject-fetesting.firebaseapp.com",
+  databaseURL: "https://ltmwebproject-fetesting.firebaseio.com",
+  projectId: "ltmwebproject-fetesting",
+  storageBucket: "ltmwebproject-fetesting.appspot.com",
+  messagingSenderId: "787184009519",
+  appId: "1:787184009519:web:c431f6d60ef4bd504761da",
+  measurementId: "G-29P2FZC114"
 };
 
 const provider = new firebase.auth.GoogleAuthProvider();
@@ -26,6 +26,8 @@ export const generateUserDocument = async (user, additionalData) => {
   const userRef = firestore.doc(`users/${user.uid}`);
   const snapshot = await userRef.get();
   if (!snapshot.exists) {
+    console.log(user.displayName);
+    console.log(additionalData);
     const { email, displayName, photoURL } = user;
     try {
       await userRef.set({
@@ -41,7 +43,7 @@ export const generateUserDocument = async (user, additionalData) => {
   return getUserDocument(user.uid);
 };
 
-const getUserDocument = async uid => {
+export const getUserDocument = async uid => {
   if (!uid) return null;
   try {
     const userDocument = await firestore.doc(`users/${uid}`).get();
@@ -61,11 +63,32 @@ export const getContestsDocument = async () => {
     console.log('No matching documents.');
     return;
   }
-  let docs=[]
+  let docs = []
+  snapshot.forEach(doc => {
+    console.log(doc.id, '=>', doc.data());
+    doc.data().id = doc.id
+    docs.push({
+      id: doc.id,
+      title: doc.data().title,
+      numberOfQuestions: doc.data().numberOfQuestions,
+      type: doc.data().type
+    })
+  });
+  console.log('data  ', docs);
+  return docs
+}
+
+export const getQuestionList = async (contestID) => {
+  const questionListRef = await firestore.collection(`contests/${contestID}/question`)
+  const snapshot = await questionListRef.get();
+  if (snapshot.empty) {
+    return;
+  }
+  let docs = []
   snapshot.forEach(doc => {
     console.log(doc.id, '=>', doc.data());
     docs.push(doc.data())
-  });
+  })
   console.log('data  ', docs);
   return docs
 }
