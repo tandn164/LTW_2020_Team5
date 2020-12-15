@@ -12,6 +12,8 @@ import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
+import TestProcessing from "./views/TestProcessing";
+import FormOk from "./components/components-overview/CompleteFormExample"
 
 export default [
   {
@@ -19,6 +21,11 @@ export default [
     exact: true,
     layout: DefaultLayout,
     component: () => <Redirect to="/blog-overview" />
+  },
+  {
+    path: "/test-processing",
+    layout: DefaultLayout,
+    component: TestProcessing
   },
   {
     path: "/blog-overview",

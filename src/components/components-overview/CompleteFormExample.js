@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 import {
   ListGroup,
   ListGroupItem,
   Row,
+  FormRadio,
   Col,
   Form,
   FormInput,
@@ -12,73 +14,56 @@ import {
   Button
 } from "shards-react";
 
-const CompleteFormExample = () => (
-  <ListGroup flush>
-    <ListGroupItem className="p-3">
-      <Row>
-        <Col>
-          <Form>
-            <Row form>
-              <Col md="6" className="form-group">
-                <label htmlFor="feEmailAddress">Email</label>
-                <FormInput
-                  id="feEmailAddress"
-                  type="email"
-                  placeholder="Email"
-                />
-              </Col>
-              <Col md="6">
-                <label htmlFor="fePassword">Password</label>
-                <FormInput
-                  id="fePassword"
-                  type="password"
-                  placeholder="Password"
-                />
-              </Col>
-            </Row>
+export default function CompleteFormExample(props) {
+  const [isChecked, setCheck] = useState()
+  const [question, setQuestion] = useState(props.data.question)
+  const [index, setIndex] = useState(props.index)
+  const [answer, setAnswer] = useState(props.data.answer)
+  const [correctAnswer, setCorrect] = useState(props.data.correctAnswer)
 
-            <FormGroup>
-              <label htmlFor="feInputAddress">Address</label>
-              <FormInput id="feInputAddress" placeholder="1234 Main St" />
-            </FormGroup>
+  useEffect(() => {
+    // console.log("props  ", props);
+  }, [isChecked])
+  const handleChange = (event) => {
+    setCheck(event+index)
+    const data = {
+      question: index,
+      answer: event
+    }
+    props.getUserAnswer(data)
+  }
+  const getAnswer = (data) => {
 
-            <FormGroup>
-              <label htmlFor="feInputAddress2">Address 2</label>
-              <FormInput
-                id="feInputAddress2"
-                placeholder="Apartment, Studio or Floor"
-              />
-            </FormGroup>
+  }
+  return (
+    <ListGroup flush>
+      <ListGroupItem className="p-3">
+        <div className="wrap-question">
+          <label className="content-question">
+            Câu {parseInt(index)+1}: {question}
+          </label>
+          <div className="wrap-answer">
+            {(answer.length > 0) ? (
+              answer.map((value, i) => {
+                return (
+                  <FormRadio
+                    name={value+index}
+                    checked={isChecked === value+index}
+                    onChange={() => {
+                      handleChange(value)
+                    }}>
+                    {value}
+                  </FormRadio>
+                )
+              })) : ('')}
+          </div>
 
-            <Row form>
-              <Col md="6" className="form-group">
-                <label htmlFor="feInputCity">City</label>
-                <FormInput id="feInputCity" />
-              </Col>
-              <Col md="4" className="form-group">
-                <label htmlFor="feInputState">State</label>
-                <FormSelect id="feInputState">
-                  <option>Choose...</option>
-                  <option>...</option>
-                </FormSelect>
-              </Col>
-              <Col md="2" className="form-group">
-                <label htmlFor="feInputZip">Zip</label>
-                <FormInput id="feInputZip" />
-              </Col>
-              <Col md="12" className="form-group">
-                <FormCheckbox>
-                  {/* eslint-disable-next-line */}I agree with your{" "}
-                  <a href="#">Privacy Policy</a>.
-                </FormCheckbox>
-              </Col>
-            </Row>
-            <Button type="submit">Create New Account</Button>
-          </Form>
-        </Col>
-      </Row>
-    </ListGroupItem>
-  </ListGroup>
-);
+        </div>
 
-export default CompleteFormExample;
+
+      </ListGroupItem>
+    </ListGroup>
+  )
+}
+
+// export default CompleteFormExample;
