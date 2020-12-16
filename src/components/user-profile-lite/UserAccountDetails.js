@@ -24,7 +24,7 @@ const UserAccountDetails = ({ title }) => (
       <ListGroupItem className="p-3">
         <Row>
           <Col>
-            <Form>
+            <Form className="fix-align-user-profile">
               <Row form>
                 {/* First Name */}
                 <Col md="6" className="form-group">
