@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import './LoginScreen.css';
 
-//import { Link } from "react-router-dom";
-import { auth , generateUserDocument} from '../components/Firebase/firebase';
+import { auth , generateUserDocument, updatePassword} from '../components/Firebase/firebase';
 import RegisterSVG from '../assets/register.svg'
 import LogSVG from '../assets/log.svg'
 
@@ -29,11 +28,11 @@ const LoginScreen = () => {
       const {user} = await auth.createUserWithEmailAndPassword(email, password).then((user) => {
         auth.currentUser.sendEmailVerification();
         if (user.user) {
-          console.log("323232323");
           user.user.updateProfile({
             photoURL: user.photoURL ? user.photoURL:"https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350",
             displayName:displayName
           }).then(function() {
+            updatePassword(password)
             generateUserDocument(user, displayName);
           }).catch(function(error) {
           });

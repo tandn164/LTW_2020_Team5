@@ -23,6 +23,7 @@ export default function CompleteFormExample(props) {
 
   useEffect(() => {
   }, [isChecked])
+
   const handleChange = (event) => {
     setCheck(event+index)
     const data = {
@@ -31,9 +32,7 @@ export default function CompleteFormExample(props) {
     }
     props.getUserAnswer(data)
   }
-  const getAnswer = (data) => {
 
-  }
   return (
     <div style={{paddingLeft:"20px", paddingTop: "20px", paddingRight: "20px"}}>
       <ListGroupItem className="p-3">
@@ -58,8 +57,6 @@ export default function CompleteFormExample(props) {
           </div>
 
         </div>
-
-
       </ListGroupItem>
     </div>
   )

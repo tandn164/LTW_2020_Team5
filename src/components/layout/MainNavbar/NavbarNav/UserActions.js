@@ -47,7 +47,7 @@ export default class UserActions extends React.Component {
     let userProfileURL = "https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
     if (this.state.user) {
       userName = this.state.user.displayName
-      userProfileURL = this.state.user.photoURL ? this.state.user.photoURL : userProfileURL
+      userProfileURL = this.state.user.urlProfile ? this.state.user.urlProfile : userProfileURL
     }
     return (
       <NavItem tag={Dropdown} caret toggle={this.toggleUserActions}>

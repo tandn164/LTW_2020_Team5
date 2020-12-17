@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import "firebase/auth";
+import 'firebase/storage'
 
 const firebaseConfig = {
   apiKey: "AIzaSyC6PAJEYtNpkbA-LDy47SfME27i-dFNc0U",
@@ -21,14 +22,14 @@ export const firestore = firebase.firestore();
 export const signInWithGoogle = () => {
   auth.signInWithPopup(provider);
 };
+export const storage = firebase.storage();
+
 export const generateUserDocument = async (user, additionalData) => {
   if (!user) return;
   const userRef = firestore.doc(`users/${user.uid}`);
   const snapshot = await userRef.get();
-  console.log(user.displayName);
-  console.log(user)
   if (!snapshot.exists) {
-    updateUserInfo(auth.currentUser.displayName,auth.currentUser.email,null,auth.currentUser.photoURL)
+    updateUserInfo(auth.currentUser.displayName,auth.currentUser.email,null,auth.currentUser.photoURL,null)
   }
   return getUserDocument(user.uid);
 };
@@ -95,7 +96,7 @@ export const updateUserResult = async (contestID, point) => {
   const res = await firestore.collection(`contests/${contestID}/rank`).doc(`${user.uid}`).set(data);
 }
 
-export const updateUserInfo = async (displayName, email, city, photoURL) => {
+export const updateUserInfo = async (displayName, email, city, photoURL, description) => {
   if (!auth.currentUser) {
     return;
   }
@@ -103,9 +104,24 @@ export const updateUserInfo = async (displayName, email, city, photoURL) => {
     city: city,
     displayName: displayName,
     urlProfile: photoURL,
-    email: email
+    email: email,
+    description: description,
   }; 
   const res = await firestore.collection(`users`).doc(`${auth.currentUser.uid}`).set(data);
+}
+
+export const updatePassword = async (password) => {
+  if (!auth.currentUser) {
+    return;
+  }
+  const data = {
+    password: password,
+  }; 
+  auth.currentUser.updatePassword(password).then(function() {
+    firestore.collection(`users`).doc(`${auth.currentUser.uid}`).update(data);
+  }).catch(function(error) {
+    console.log(error);
+  });
 }
 
 export const getRankDetail = async (contestID) => {
