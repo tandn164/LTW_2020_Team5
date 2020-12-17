@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 import {
-  ListGroup,
   ListGroupItem,
-  Row,
   FormRadio,
-  Col,
-  Form,
-  FormInput,
-  FormGroup,
-  FormCheckbox,
-  FormSelect,
-  Button
 } from "shards-react";
 
 export default function CompleteFormExample(props) {
@@ -19,7 +10,6 @@ export default function CompleteFormExample(props) {
   const [question, setQuestion] = useState(props.data.question)
   const [index, setIndex] = useState(props.index)
   const [answer, setAnswer] = useState(props.data.answer)
-  const [correctAnswer, setCorrect] = useState(props.data.correctAnswer)
 
   useEffect(() => {
   }, [isChecked])

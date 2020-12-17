@@ -136,3 +136,28 @@ export const getRankDetail = async (contestID) => {
   })
   return docs
 }
+
+export const getFeedback = async (contestID) => {
+  const feedbackRef = await firestore.collection(`contests/${contestID}/feedback`)
+  const snapshot = await feedbackRef.get();
+  if (snapshot.empty) {
+    return;
+  }
+  let docs = []
+  snapshot.forEach(doc => {
+    docs.push(doc.data())
+  })
+  return docs
+}
+
+export const newFeedback = async (message,contestID) => {
+  if (!auth.currentUser) {
+    return;
+  }
+  const data = {
+    userName: auth.currentUser.displayName,
+    message: message,
+    reply: null
+  }; 
+  const res = await firestore.collection(`contests/${contestID}/feedback`).doc(`${auth.currentUser.uid}`).set(data);
+}

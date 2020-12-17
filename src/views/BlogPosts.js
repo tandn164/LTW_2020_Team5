@@ -48,7 +48,7 @@ class BlogPosts extends React.Component {
                   {value.category}
                 </Badge>
                   <div className="card-post__author d-flex">
-                  <Link to={{pathname:"/test-processing",questionsProp: value.id}}>
+                  <Link to={{pathname:"/test-processing",questionsProp: value.id, title:value.title, level: value.type}}>
                   <a
                     href="#"
                     className="card-post__author-avatar card-post__author-avatar--small"

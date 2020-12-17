@@ -14,6 +14,7 @@ import Ranks from "./views/Ranks";
 import BlogPosts from "./views/BlogPosts";
 import TestProcessing from "./views/TestProcessing";
 import RankDetail from "./views/RankDetail";
+import Result from "./views/Result";
 
 export default [
   {
@@ -21,6 +22,12 @@ export default [
     exact: true,
     layout: DefaultLayout,
     component: () => <Redirect to="/blog-posts" />
+  },
+  {
+    path: "/result",
+    exact: true,
+    layout: DefaultLayout,
+    component: Result
   },
   {
     path: "/test-processing",

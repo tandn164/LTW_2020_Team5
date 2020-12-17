@@ -1,15 +1,19 @@
-
 import React, { useState, useEffect } from 'react';
 import {
-    Button
+    Button,
+    Container,
+    Row,
 } from "shards-react";
+
+import PageTitle from "../components/common/PageTitle";
 import CompleteFormExample from '../components/components-overview/CompleteFormExample';
 import { auth, getQuestionList,updateUserResult } from '../components/Firebase/firebase';
-import { Alert } from 'react-alert'
 
 function TestProcessing(props) {
     const [answerData, setData] = useState(null)
     const [listAnswer, setListAnswer] = useState(null)
+    const [contestTitle, setTitle] = useState(props.location.title)
+    const [contestLevel, setLevel] = useState(props.location.level)
 
     const getUserAnswer = (data) => {
         if (listAnswer[data.question] != data.answer) {
@@ -42,7 +46,10 @@ function TestProcessing(props) {
             return;
         }
         updateUserResult(props.location.questionsProp,result)
-        alert(`Your result is ${result}/${answerData.length}`)
+        props.history.push({
+            pathname: '/result',
+            state: { result:result, total:answerData.length, currentContestID: props.location.questionsProp}
+        })
     }
 
     function content() {
@@ -55,18 +62,28 @@ function TestProcessing(props) {
                         getUserAnswer={(data) => getUserAnswer(data)}
                     />)
             })
-
             return show
         }
     }
 
     return (
+        <Container fluid className="main-content-container px-4">
+      <Row noGutters className="page-header py-4">
+        <PageTitle
+          sm="4"
+          title={`${contestTitle ? contestTitle : ""}`}
+          subtitle={`Level: ${contestLevel ? contestLevel : ""}`}
+          className="text-sm-left"
+        />
+      </Row>
+
         <>
             {content()}
             <div style={{textAlign: "center"}}>
                 <Button onClick={() => handleSubmit()}>Submit</Button>
             </div>
         </>
+        </Container>
     )
 }
 
