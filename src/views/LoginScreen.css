@@ -408,3 +408,18 @@ form.sign-in-form {
     left: 50%;
   }
 }
+
+.fix-align-user-profile{
+  align-items: unset !important;
+}
+
+.fix-img-table{
+  height: 50px;
+}
+
+.center td,th{
+  /* display: flex; */
+  text-align: center; 
+  vertical-align: middle;
+  padding: 1.5%;
+}
