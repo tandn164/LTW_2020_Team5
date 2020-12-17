@@ -29,11 +29,14 @@ const LoginScreen = () => {
       const {user} = await auth.createUserWithEmailAndPassword(email, password).then((user) => {
         auth.currentUser.sendEmailVerification();
         if (user.user) {
+          console.log("323232323");
           user.user.updateProfile({
             photoURL: user.photoURL ? user.photoURL:"https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350",
             displayName:displayName
-          })
-          generateUserDocument(user, displayName);
+          }).then(function() {
+            generateUserDocument(user, displayName);
+          }).catch(function(error) {
+          });
         }
       })
     }

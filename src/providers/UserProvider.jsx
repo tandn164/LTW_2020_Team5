@@ -9,6 +9,7 @@ class UserProvider extends Component {
   
   componentDidMount = async () => {
     auth.onAuthStateChanged(async userAuth => {
+      console.log(123123123);
       const user = await generateUserDocument(userAuth);
       this.setState({ user });
     });

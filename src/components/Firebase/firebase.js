@@ -25,19 +25,10 @@ export const generateUserDocument = async (user, additionalData) => {
   if (!user) return;
   const userRef = firestore.doc(`users/${user.uid}`);
   const snapshot = await userRef.get();
+  console.log(user.displayName);
+  console.log(user)
   if (!snapshot.exists) {
-    const { email, displayName, photoURL } = user;
-    console.log(displayName);
-    try {
-      await userRef.set({
-        displayName,
-        email,
-        photoURL,
-        ...additionalData
-      });
-    } catch (error) {
-      console.error("Error creating user document", error);
-    }
+    updateUserInfo(auth.currentUser.displayName,auth.currentUser.email,null,auth.currentUser.photoURL)
   }
   return getUserDocument(user.uid);
 };
@@ -102,6 +93,19 @@ export const updateUserResult = async (contestID, point) => {
     urlProfile: user.photoURL
   }; 
   const res = await firestore.collection(`contests/${contestID}/rank`).doc(`${user.uid}`).set(data);
+}
+
+export const updateUserInfo = async (displayName, email, city, photoURL) => {
+  if (!auth.currentUser) {
+    return;
+  }
+  const data = {
+    city: city,
+    displayName: displayName,
+    urlProfile: photoURL,
+    email: email
+  }; 
+  const res = await firestore.collection(`users`).doc(`${auth.currentUser.uid}`).set(data);
 }
 
 export const getRankDetail = async (contestID) => {
