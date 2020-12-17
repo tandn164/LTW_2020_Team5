@@ -5,6 +5,7 @@ import {
 } from "shards-react";
 import CompleteFormExample from '../components/components-overview/CompleteFormExample';
 import { auth, getQuestionList,updateUserResult } from '../components/Firebase/firebase';
+import { Alert } from 'react-alert'
 
 function TestProcessing(props) {
     const [answerData, setData] = useState(null)
@@ -41,6 +42,7 @@ function TestProcessing(props) {
             return;
         }
         updateUserResult(props.location.questionsProp,result)
+        alert(`Your result is ${result}/${answerData.length}`)
     }
 
     function content() {

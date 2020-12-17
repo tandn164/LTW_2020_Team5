@@ -14,6 +14,7 @@
     "lodash.find": "^4.6.0",
     "phantomjs-prebuilt": "^2.1.16",
     "react": "^16.14.0",
+    "react-alert": "^7.0.2",
     "react-dom": "^16.14.0",
     "react-ga": "^2.5.6",
     "react-images-upload": "^1.2.8",
