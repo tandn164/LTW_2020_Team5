@@ -10,7 +10,6 @@ import {
   NavItem,
   NavLink
 } from "shards-react";
-import avatar from "./../../../../images/avatars/0.jpg"
 
 export default class UserActions extends React.Component {
   constructor(props) {
@@ -45,15 +44,17 @@ export default class UserActions extends React.Component {
 
   render() {
     let userName = ""
+    let userProfileURL = "https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
     if (this.state.user) {
       userName = this.state.user.displayName
+      userProfileURL = this.state.user.photoURL ? this.state.user.photoURL : userProfileURL
     }
     return (
       <NavItem tag={Dropdown} caret toggle={this.toggleUserActions}>
         <DropdownToggle caret tag={NavLink} className="text-nowrap px-3">
           <img
-            className="user-avatar rounded-circle mr-2"
-            src={avatar}
+            className="user-avatar"
+            src={userProfileURL}
             alt="User Avatar"
           />{" "}
           <span className="d-none d-md-inline-block">{userName}</span>

@@ -13,7 +13,7 @@ import {
     Button
 } from "shards-react";
 import CompleteFormExample from '../components/components-overview/CompleteFormExample';
-import { getQuestionList } from '../components/Firebase/firebase';
+import { auth, getQuestionList,updateUserResult } from '../components/Firebase/firebase';
 
 function TestProcessing(props) {
     const [answerData, setData] = useState(null)
@@ -28,7 +28,7 @@ function TestProcessing(props) {
     const getQuestions = async(contestID) => {
         const questionList = await getQuestionList(contestID)
         setData(questionList)
-        setListAnswer([...Array(questionList.length)])
+        setListAnswer([...Array(questionList ? questionList.length : 0)])
         return questionList
     }
 
@@ -41,6 +41,17 @@ function TestProcessing(props) {
 
     const handleSubmit = () => {
         console.log(listAnswer);
+        let result = 0;
+        var i;
+        for (i = 0; i< answerData.length; i++) {
+            if (listAnswer[i] == answerData[i].correctAnswer) {
+                result += 1;
+            }
+        }
+        if (!auth.currentUser) {
+            return;
+        }
+        updateUserResult(props.location.questionsProp,result)
     }
 
     function content() {
