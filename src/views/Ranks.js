@@ -12,7 +12,7 @@ import {
 import { Link } from 'react-router-dom';
 import PageTitle from "../components/common/PageTitle";
 
-class BlogPosts extends React.Component {
+class Ranks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,7 +48,7 @@ class BlogPosts extends React.Component {
                   {value.category}
                 </Badge>
                   <div className="card-post__author d-flex">
-                  <Link to={{pathname:"/test-processing",questionsProp: value.id}}>
+                  <Link to={{pathname:"/rank-detail",contestID: value.id}}>
                   <a
                     href="#"
                     className="card-post__author-avatar card-post__author-avatar--small"
@@ -87,9 +87,8 @@ class BlogPosts extends React.Component {
   render() {
     return (
       <Container fluid className="main-content-container px-4">
-        {/* Page Header */}
         <Row noGutters className="page-header py-4">
-          <PageTitle sm="4" title="Contest and Exercise" className="text-sm-left" />
+          <PageTitle sm="4" title="Ranking" className="text-sm-left" />
         </Row>
         <Row>
           {this.content()}
@@ -99,4 +98,4 @@ class BlogPosts extends React.Component {
   }
 }
 
-export default BlogPosts;
+export default Ranks;

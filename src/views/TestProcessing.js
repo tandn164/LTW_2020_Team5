@@ -1,15 +1,6 @@
 
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-    Container,
-    Row,
-    Col,
-    Card,
-    CardHeader,
-    ListGroup,
-    ListGroupItem,
-    Form,
-    Alert,
     Button
 } from "shards-react";
 import CompleteFormExample from '../components/components-overview/CompleteFormExample';
@@ -29,14 +20,12 @@ function TestProcessing(props) {
         const questionList = await getQuestionList(contestID)
         setData(questionList)
         setListAnswer([...Array(questionList ? questionList.length : 0)])
-        return questionList
     }
 
     useEffect(()=>{
        if (!answerData) {
         getQuestions(props.location.questionsProp)
        }
-
     })
 
     const handleSubmit = () => {

@@ -10,10 +10,10 @@ import UserProfileLite from "./views/UserProfileLite";
 import AddNewPost from "./views/AddNewPost";
 import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
-import Tables from "./views/Tables";
+import Ranks from "./views/Ranks";
 import BlogPosts from "./views/BlogPosts";
 import TestProcessing from "./views/TestProcessing";
-import FormOk from "./components/components-overview/CompleteFormExample"
+import RankDetail from "./views/RankDetail";
 
 export default [
   {
@@ -55,7 +55,12 @@ export default [
   {
     path: "/rank",
     layout: DefaultLayout,
-    component: Tables
+    component: Ranks
+  },
+  {
+    path: "/rank-detail",
+    layout: DefaultLayout,
+    component: RankDetail
   },
   {
     path: "/blog-posts",

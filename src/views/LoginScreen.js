@@ -30,6 +30,7 @@ const LoginScreen = () => {
         auth.currentUser.sendEmailVerification();
         if (user.user) {
           user.user.updateProfile({
+            photoURL: user.photoURL ? user.photoURL:"https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350",
             displayName:displayName
           })
           generateUserDocument(user, displayName);
