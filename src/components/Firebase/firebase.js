@@ -148,7 +148,13 @@ export const getFeedback = async (contestID) => {
   }
   let docs = []
   snapshot.forEach(doc => {
-    docs.push(doc.data())
+    const data = {
+      id: doc.id,
+      userName: doc.data().userName,
+      message: doc.data().message,
+      reply: doc.data().reply
+    }
+    docs.push(data)
   })
   return docs
 }
@@ -175,11 +181,16 @@ export const newFeedback = async (message,contestID) => {
     return;
   }
   const data = {
-    uid: auth.currentUser.uid,
     userName: auth.currentUser.displayName,
     message: message,
     reply: null
   }; 
-  const res = await firestore.collection(`contests/${contestID}/feedback`).doc(`${auth.currentUser.uid}`).set(data)
+  const res = await firestore.collection(`contests/${contestID}/feedback`).add(data)
   console.log(res);
+}
+
+export const newReply = async (reply,contestID,feedbackID) => {
+  const res = await firestore.collection(`contests/${contestID}/feedback`).doc(`${feedbackID}`).update({
+    reply: reply
+  })
 }

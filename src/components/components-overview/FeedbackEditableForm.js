@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { withRouter } from "react-router-dom";
 
 import {
     ListGroupItem,
@@ -6,12 +7,19 @@ import {
     FormInput,
     Button
 } from "shards-react";
-import SmallButtons from "./SmallButtons";
+import { newReply } from "../Firebase/firebase";
 
-export default function FeedBackFormEditableForm(props) {
+function FeedBackFormEditableForm(props) {
     const [userName, setUserName] = useState(props.userName)
     const [feedback, setFeedback] = useState(props.feedback)
-    const [reply, setReply] = useState(props.reply)
+    const [feedbackID, setFBID] = useState(props.feedbackID)
+    const [contestID, setCID] = useState(props.contestID)
+    const [reply, setReply] = useState("")
+
+    const onChangeHandler = (event) => {
+        const { name, value } = event.currentTarget;
+        setReply(value)
+    };
 
     return (
         <div style={{ paddingLeft: "20px", paddingTop: "20px", paddingRight: "20px" }}>
@@ -29,15 +37,21 @@ export default function FeedBackFormEditableForm(props) {
                         <div style={{width:"15px"}}></div>
                         <FormInput
                         style={{flex:"1"}}
-                            type="email"
                             id="feEmail"
                             placeholder="Reply"
-                            name="email"
-                            onChange={() => { }}
+                            onChange = {(event) => onChangeHandler(event)}
                         />
                     </Row>
                     <div style={{ alignSelf: "center", paddingRight: "20px"}}>
-                    <Button>
+                    <Button onClick = {() => {
+                        newReply(reply,contestID,feedbackID)
+                        props.history.push(
+                            {
+                                pathname : "/contest-detail",
+                                contestID: contestID
+                            }
+                        )
+                    }}>
                         Reply
                     </Button>
                     </div>
@@ -46,3 +60,5 @@ export default function FeedBackFormEditableForm(props) {
         </div>
     )
 }
+
+export default withRouter(FeedBackFormEditableForm)

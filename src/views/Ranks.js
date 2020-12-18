@@ -9,7 +9,6 @@ import {
   Button,
 } from "shards-react";
 
-import { Link } from 'react-router-dom';
 import PageTitle from "../components/common/PageTitle";
 
 class Ranks extends React.Component {
@@ -88,7 +87,6 @@ class Ranks extends React.Component {
         </Row>
         <Row>
           {this.content()}
-          
         </Row>
       </Container>
     );

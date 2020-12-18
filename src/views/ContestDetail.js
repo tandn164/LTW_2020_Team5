@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link, useHistory, withRouter } from "react-router-dom";
 import { Container, Row, Col, Card, CardHeader, CardBody,CardImg } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
@@ -19,7 +20,6 @@ function ContestDetail (props) {
         const feedback = await getFeedback(currentContestID)
         setFeedback(feedback)
     }
-
 
     useEffect(() => {
         if (!rankData) {
@@ -69,6 +69,8 @@ function ContestDetail (props) {
                         <FeedBackFormEditableForm
                             userName={value.userName} 
                             feedback={value.message}
+                            feedbackID = {value.id}
+                            contestID = {props.location.contestID}
                         />
                     )
                 }
@@ -141,4 +143,4 @@ function ContestDetail (props) {
   </Container>);
 };
 
-export default ContestDetail;
+export default withRouter(ContestDetail);
