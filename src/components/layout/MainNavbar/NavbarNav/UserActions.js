@@ -64,7 +64,7 @@ export default class UserActions extends React.Component {
             <i className="material-icons">&#xE8B8;</i> Edit Profile
           </DropdownItem>
           <DropdownItem divider />
-          <DropdownItem tag={Link} to="/" className="text-danger" onClick = {() => {auth.signOut()}}> 
+          <DropdownItem tag={Link} to="/" className="text-danger" onClick = {() => {auth.signOut();localStorage.clear()}}> 
             <i className="material-icons text-danger">&#xE879;</i> Logout
           </DropdownItem>
         </Collapse>

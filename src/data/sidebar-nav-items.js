@@ -12,16 +12,6 @@ export default function() {
       to: "/blog-posts",
     },
     {
-      title: "Add New Contest (only for admin)",
-      htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/add-new-contest",
-    },
-    {
-      title: "Forms & Components (use for dev)",
-      htmlBefore: '<i class="material-icons">view_module</i>',
-      to: "/components-overview",
-    },
-    {
       title: "User Dashboard",
       htmlBefore: '<i class="material-icons">person</i>',
       to: "/user-dashboard",

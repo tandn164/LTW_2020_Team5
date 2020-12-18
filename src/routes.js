@@ -5,9 +5,7 @@ import { Redirect } from "react-router-dom";
 import { DefaultLayout } from "./layouts";
 
 // Route Views
-import BlogOverview from "./views/BlogOverview";
 import UserProfileLite from "./views/UserProfileLite";
-import AddNewPost from "./views/AddNewPost";
 import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Ranks from "./views/Ranks";
@@ -18,6 +16,8 @@ import Result from "./views/Result";
 import ContestDashboard from "./views/ContestDashboard";
 import ContestDetail from "./views/ContestDetail";
 import NewContestPopup from "./components/common/NewContestPopupForm";
+import UserDashboard from "./views/UserDashboard";
+
 
 export default [
   {
@@ -33,6 +33,12 @@ export default [
     component: Result
   },
   {
+    path: "/user-dashboard",
+    exact: true,
+    layout: DefaultLayout,
+    component: UserDashboard
+  },
+  {
     path: "/contest-dashboard",
     exact: true,
     layout: DefaultLayout,
@@ -44,19 +50,9 @@ export default [
     component: TestProcessing
   },
   {
-    path: "/blog-overview",
-    layout: DefaultLayout,
-    component: BlogOverview
-  },
-  {
     path: "/user-profile",
     layout: DefaultLayout,
     component: UserProfileLite
-  },
-  {
-    path: "/add-new-contest",
-    layout: DefaultLayout,
-    component: AddNewPost
   },
   {
     path: "/new-contest",

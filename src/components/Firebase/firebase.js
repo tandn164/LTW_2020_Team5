@@ -110,7 +110,7 @@ export const updateUserInfo = async (displayName, email, city, photoURL, descrip
     email: email,
     description: description,
   }; 
-  const res = await firestore.collection(`users`).doc(`${auth.currentUser.uid}`).set(data);
+  const res = await firestore.collection(`users`).doc(`${auth.currentUser.uid}`).update(data);
 }
 
 export const updatePassword = async (password) => {
@@ -193,4 +193,29 @@ export const newReply = async (reply,contestID,feedbackID) => {
   const res = await firestore.collection(`contests/${contestID}/feedback`).doc(`${feedbackID}`).update({
     reply: reply
   })
+}
+
+export const getListUser = async () => {
+  const feedbackRef = await firestore.collection(`users`)
+  const snapshot = await feedbackRef.get();
+  if (snapshot.empty) {
+    return;
+  }
+  let docs = []
+  snapshot.forEach(doc => {
+    const data = {
+      id: doc.id,
+      displayName: doc.data().displayName,
+      description: doc.data().description,
+      city: doc.data().city,
+      urlProfile: doc.data().urlProfile,
+      email: doc.data().email
+    } 
+    docs.push(data)
+  })
+  return docs
+}
+
+export const deleteUser = async(uid) => {
+  
 }

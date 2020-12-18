@@ -10,7 +10,7 @@ class SidebarNavItems extends React.Component {
     super(props)
 
     this.state = {
-      navItems: Store.getSidebarItems(),
+      navItems: [],
       role: ""
     };
 
@@ -19,17 +19,34 @@ class SidebarNavItems extends React.Component {
 
   async componentDidMount() {
     if (auth.currentUser) {
-      const res = await getUserDocument(auth.currentUser.uid)
-      if (res.role && res.role == "admin") {
-        this.setState({
-          ...this.state,
-          role: "admin"
-        })
+      if (!localStorage.getItem("role")) {
+        const res = await getUserDocument(auth.currentUser.uid)
+        if (res.role && res.role == "admin") {
+          this.setState({
+            ...this.state,
+            navItems: Store.getSidebarItems()
+          })
+          localStorage.setItem("role","admin")
+          console.log(localStorage.getItem("role"));
+        } else {
+          this.setState({
+            ...this.state,
+            navItems: Store.getUserSidebarItems()
+          })
+          localStorage.setItem("role","user")
+        }
       } else {
-        this.setState({
-          ...this.state,
-          navItems: Store.getUserSidebarItems()
-        })
+        if (localStorage.getItem("role") == "admin") {
+          this.setState({
+            ...this.state,
+            navItems: Store.getSidebarItems()
+          });
+        } else {
+          this.setState({
+            ...this.state,
+            navItems: Store.getUserSidebarItems()
+          });
+        }
       }
     }
   }
@@ -43,7 +60,7 @@ class SidebarNavItems extends React.Component {
   }
 
   onChange() {
-    if (this.state.role == "admin") {
+    if (localStorage.getItem("role") == "admin") {
       this.setState({
         ...this.state,
         navItems: Store.getSidebarItems()

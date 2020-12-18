@@ -15,13 +15,12 @@ function UserProfileLite(){
   const getProfilePath = (data) => {
     setURL(data.url)
     setImage(data.file)
-    console.log(data.url);
-    console.log(data.file);
   }
 
   const getUserProfile = (data) => {
     var storageRef = storage.ref()
     var imageRef = storageRef.child(photoURL)
+    
     imageRef.put(image).then(function(snapshot) {
       storage.ref().child(photoURL).getDownloadURL().then(url => {
         console.log(url);

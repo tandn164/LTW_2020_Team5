@@ -62,7 +62,7 @@ class Ranks extends React.Component {
                         pathname: '/rank-detail',
                         contestID: value.id
                     })
-                  }}> Do Test
+                  }}> See Detail
                   </Button>
                 </div>
             </Card>
