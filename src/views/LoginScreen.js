@@ -62,6 +62,7 @@ const LoginScreen = () => {
     else if (name === "displayName") {
       setDisplayName(value);
     }
+    console.log(value);
   };
   return (
     <div>

@@ -37,7 +37,10 @@ function TestProcessing(props) {
         console.log(listAnswer);
         let result = 0;
         var i;
-        for (i = 0; i< answerData ? answerData.length : 0; i++) {
+        console.log(answerData);
+        if (!answerData) return;
+        for (i = 0; i< answerData.length ; i++) {
+            console.log("13",answerData[i].correctAnswer);
             if (listAnswer[i] == answerData[i].correctAnswer) {
                 result += 1;
             }

@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import "firebase/auth";
 import 'firebase/storage'
+import { element } from 'shards-react';
 
 const firebaseConfig = {
   apiKey: "AIzaSyC6PAJEYtNpkbA-LDy47SfME27i-dFNc0U",
@@ -152,14 +153,33 @@ export const getFeedback = async (contestID) => {
   return docs
 }
 
+export const newContest = async (title,description,type, questionList) => {
+  const data = {
+    title: title,
+    description: description,
+    type:type
+  }
+  const res = await firestore.collection('contests').add(data);
+  questionList.forEach((element) => {
+    const data2 = {
+      answer: [element.answer1, element.answer2, element.answer3, element.answer4],
+      question: element.question,
+      correctAnswer: element.correctAnswer
+    }
+    const res2 = firestore.collection(`contests/${res.id}/question`).add(data2)
+  })
+}
+
 export const newFeedback = async (message,contestID) => {
   if (!auth.currentUser) {
     return;
   }
   const data = {
+    uid: auth.currentUser.uid,
     userName: auth.currentUser.displayName,
     message: message,
     reply: null
   }; 
-  const res = await firestore.collection(`contests/${contestID}/feedback`).doc(`${auth.currentUser.uid}`).set(data);
+  const res = await firestore.collection(`contests/${contestID}/feedback`).doc(`${auth.currentUser.uid}`).set(data)
+  console.log(res);
 }

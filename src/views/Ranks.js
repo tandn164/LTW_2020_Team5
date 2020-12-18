@@ -60,8 +60,8 @@ class Ranks extends React.Component {
               <div style={{alignSelf:"flex-end", paddingRight:"20px", paddingBottom:"10px"}}>
                   <Button onClick= {()=>{
                       this.props.history.push({
-                        pathname: '/test-processing',
-                        questionsProp: value.id, title:value.title, level: value.type
+                        pathname: '/rank-detail',
+                        contestID: value.id
                     })
                   }}> Do Test
                   </Button>
@@ -88,6 +88,7 @@ class Ranks extends React.Component {
         </Row>
         <Row>
           {this.content()}
+          
         </Row>
       </Container>
     );

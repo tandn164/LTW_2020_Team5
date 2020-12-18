@@ -16,6 +16,8 @@ import TestProcessing from "./views/TestProcessing";
 import RankDetail from "./views/RankDetail";
 import Result from "./views/Result";
 import ContestDashboard from "./views/ContestDashboard";
+import ContestDetail from "./views/ContestDetail";
+import NewContestPopup from "./components/common/NewContestPopupForm";
 
 export default [
   {
@@ -55,6 +57,16 @@ export default [
     path: "/add-new-contest",
     layout: DefaultLayout,
     component: AddNewPost
+  },
+  {
+    path: "/new-contest",
+    layout: DefaultLayout,
+    component: NewContestPopup
+  },
+  {
+    path: "/contest-detail",
+    layout: DefaultLayout,
+    component: ContestDetail
   },
   {
     path: "/errors",
