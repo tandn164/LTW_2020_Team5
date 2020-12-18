@@ -53,14 +53,6 @@ MainFooter.defaultProps = {
       title: "About",
       to: "#"
     },
-    {
-      title: "Products",
-      to: "#"
-    },
-    {
-      title: "Blog",
-      to: "#"
-    }
   ]
 };
 

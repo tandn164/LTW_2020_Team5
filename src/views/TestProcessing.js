@@ -37,7 +37,7 @@ function TestProcessing(props) {
         console.log(listAnswer);
         let result = 0;
         var i;
-        for (i = 0; i< answerData.length; i++) {
+        for (i = 0; i< answerData ? answerData.length : 0; i++) {
             if (listAnswer[i] == answerData[i].correctAnswer) {
                 result += 1;
             }
@@ -48,7 +48,7 @@ function TestProcessing(props) {
         updateUserResult(props.location.questionsProp,result)
         props.history.push({
             pathname: '/result',
-            state: { result:result, total:answerData.length, currentContestID: props.location.questionsProp}
+            state: { result:result, total:answerData ? answerData.length : 0, currentContestID: props.location.questionsProp}
         })
     }
 

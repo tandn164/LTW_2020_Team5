@@ -15,6 +15,7 @@ import BlogPosts from "./views/BlogPosts";
 import TestProcessing from "./views/TestProcessing";
 import RankDetail from "./views/RankDetail";
 import Result from "./views/Result";
+import ContestDashboard from "./views/ContestDashboard";
 
 export default [
   {
@@ -28,6 +29,12 @@ export default [
     exact: true,
     layout: DefaultLayout,
     component: Result
+  },
+  {
+    path: "/contest-dashboard",
+    exact: true,
+    layout: DefaultLayout,
+    component: ContestDashboard
   },
   {
     path: "/test-processing",

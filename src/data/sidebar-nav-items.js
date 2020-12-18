@@ -2,10 +2,9 @@
 export default function() {
   return [
     {
-      title: "Main Dashboard (only for admin)",
-      to: "/blog-overview",
-      htmlBefore: '<i class="material-icons">edit</i>',
-      htmlAfter: ""
+      title: "Contest Dashboard",
+      htmlBefore: '<i class="material-icons">table_chart</i>',
+      to: "/contest-dashboard",
     },
     {
       title: "Take a test",
@@ -23,19 +22,9 @@ export default function() {
       to: "/components-overview",
     },
     {
-      title: "Rank",
-      htmlBefore: '<i class="material-icons">table_chart</i>',
-      to: "/rank",
-    },
-    {
-      title: "User Profile",
+      title: "User Dashboard",
       htmlBefore: '<i class="material-icons">person</i>',
-      to: "/user-profile",
+      to: "/user-dashboard",
     },
-    {
-      title: "Errors (use for dev)",
-      htmlBefore: '<i class="material-icons">error</i>',
-      to: "/errors",
-    }
   ];
 }

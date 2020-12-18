@@ -62,7 +62,9 @@ export const getContestsDocument = async () => {
       id: doc.id,
       title: doc.data().title,
       numberOfQuestions: doc.data().numberOfQuestions,
-      type: doc.data().type
+      type: doc.data().type,
+      time: doc.data().time,
+      description: doc.data().description
     })
   });
   console.log('data  ', docs);

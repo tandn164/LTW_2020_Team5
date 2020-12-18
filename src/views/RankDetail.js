@@ -2,21 +2,31 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, CardHeader, CardBody,CardImg } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
-import { getRankDetail } from '../components/Firebase/firebase';
+import FeedBackForm from "../components/components-overview/FeedBackForm"
+import { getFeedback, getRankDetail } from '../components/Firebase/firebase';
 
 function Rank (props) {
     const [rankData, setData] = useState(null)
+    const [feedbackData, setFeedback] = useState(null)
 
     const getRankList = async(contestID) => {
         const rankList = await getRankDetail(contestID)
         setData(rankList)
     }
 
+    const getFeedbackList = async(currentContestID) => {
+        const feedback = await getFeedback(currentContestID)
+        setFeedback(feedback)
+    }
+
+
     useEffect(() => {
         if (!rankData) {
             getRankList(props.location.contestID)
         }
-        console.log(rankData);
+        if (!feedbackData) {
+            getFeedbackList(props.location.contestID)
+        }
     });
 
     function content() {
@@ -41,13 +51,44 @@ function Rank (props) {
         return show;
     }
 
+    function feedbackContent() {
+        let show;
+        if (feedbackData && feedbackData.length > 0) {
+            show = feedbackData.map((value, idx) => {
+                return (
+                    <FeedBackForm
+                        userName={value.userName} 
+                        feedback={value.message}
+                        reply={value.reply}
+                    />)
+            })
+            return show
+        }
+    }
+
+    function feedbackTable() {
+        return (
+            <CardBody className="p-0 pb-3">
+      <Row noGutters className="page-header py-4">
+        <PageTitle
+          sm="4"
+          title="Feedback"
+          className="text-sm-left"
+        />
+      </Row>
+        <>
+            {feedbackContent()}
+        </>
+        </CardBody>
+        );
+    }
+
     return (
   <Container fluid className="main-content-container px-4">
     {/* Page Header */}
     <Row noGutters className="page-header py-4">
       <PageTitle sm="4" title="Top Players" subtitle="Results" className="text-sm-left" />
     </Row>
-
     {/* Default Light Table */}
     <Row>
       <Col>
@@ -84,6 +125,7 @@ function Rank (props) {
         </Card>
       </Col>
     </Row>
+    {feedbackTable()}
   </Container>);
 };
 

@@ -6,13 +6,14 @@ import {
   Col,
   Card,
   CardBody,
+  Badge,
   Button,
 } from "shards-react";
 
 import { Link } from 'react-router-dom';
 import PageTitle from "../components/common/PageTitle";
 
-class Ranks extends React.Component {
+class ContestDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,8 +61,8 @@ class Ranks extends React.Component {
               <div style={{alignSelf:"flex-end", paddingRight:"20px", paddingBottom:"10px"}}>
                   <Button onClick= {()=>{
                       this.props.history.push({
-                        pathname: '/test-processing',
-                        questionsProp: value.id, title:value.title, level: value.type
+                        pathname: '/rank-detail',
+                        contestID: value.id
                     })
                   }}> Do Test
                   </Button>
@@ -84,7 +85,7 @@ class Ranks extends React.Component {
     return (
       <Container fluid className="main-content-container px-4">
         <Row noGutters className="page-header py-4">
-          <PageTitle sm="4" title="Ranking" className="text-sm-left" />
+          <PageTitle sm="4" title="Rank Dashboard" className="text-sm-left" />
         </Row>
         <Row>
           {this.content()}
@@ -94,4 +95,4 @@ class Ranks extends React.Component {
   }
 }
 
-export default Ranks;
+export default ContestDashboard;
